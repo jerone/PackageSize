@@ -1,0 +1,26 @@
+{
+  "name": "PackageSize",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "description": "PackageSize",
+  "author": {
+    "name": "jerone",
+    "email": ""
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "debug": "*",
+    "express": "*",
+    "jade": "*",
+    "morgan": "*",
+    "request": "^2.51.0",
+    "serve-favicon": "*",
+    "stylus": "*",
+    "underscore": "^1.7.0"
+  }
+}

@@ -1,0 +1,18 @@
+﻿extends _layout
+
+block content
+  .row
+    .col-md-12
+      .form-group
+        input.form-control#searcher(type='search',placeholder='Search package...')
+      .form-group
+        .list-group#libraries
+          each library in libraries
+            a(href='/data/' + library.name).list-group-item
+              span.badge= library.version
+              h3.list-group-item-heading= library.name
+              p.list-group-item-text=library.description
+              p.list-group-item-text.label-group
+                each keyword in library.keywords
+                  span.label.label-primary= keyword
+                
