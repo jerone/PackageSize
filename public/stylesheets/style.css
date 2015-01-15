@@ -1,15 +1,17 @@
 body {
-  padding-top: 20px;
+    padding-top: 20px;
 }
 .navbar {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 /* More space between labels; */
+
 .label-group .label {
-  margin-right: 5px;
-  display: inline-block;
+    margin-right: 5px;
+    display: inline-block;
 }
 /* Fix color for links on active link item; */
+
 .list-group > .active a {
-  color: #d9edf7;
+    color: #d9edf7;
 }
