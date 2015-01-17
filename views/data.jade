@@ -1,39 +1,39 @@
 ﻿extends _layout
 
 block content
-  ol.breadcrumb
-    li
-      a(href='/') home
-    li
-      a(href='/data/' + library.name)= library.name
-      | &nbsp;(
-      a(href='/api/' + library.name) json
-      | )
-    li.active
-      span= library.version
-      | &nbsp;(
-      a(href='/api/' + library.name + '/' + library.version) json
-      | )
-
-  h1= library.name
-    | &nbsp;
-    small= library.version
-  
-  p.label-group
-    each keyword in library.keywords
-      span.label.label-primary= keyword
-  
-  p= library.description
-
-  #versions.length
-    p
-      ul.list-group
-        each subversion in versions
-          li.list-group-item(class=subversion===library.version?'active':'')
-            a(href='/data/' + library.name + '/' + subversion)= subversion
+    ol.breadcrumb
+        li
+            a(href='/') home
+        li
+            a(href='/data/' + library.name)= library.name
             | &nbsp;(
-            a(href='/api/' + library.name + '/' + subversion) json
+            a(href='/api/' + library.name) json
             | )
-  hr
-  #dump
-    pre= dump
+        li.active
+            span= library.version
+            | &nbsp;(
+            a(href='/api/' + library.name + '/' + library.version) json
+            | )
+
+    h1= library.name
+        | &nbsp;
+        small= library.version
+    
+    p.label-group
+        each keyword in library.keywords
+            span.label.label-primary= keyword
+    
+    p= library.description
+
+    #versions.length
+        p
+            ul.list-group
+                each subversion in versions
+                    li.list-group-item(class=subversion===library.version?'active':'')
+                        a(href='/data/' + library.name + '/' + subversion)= subversion
+                        | &nbsp;(
+                        a(href='/api/' + library.name + '/' + subversion) json
+                        | )
+    hr
+    #dump
+        pre= dump
