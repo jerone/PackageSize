@@ -2,7 +2,7 @@
 
 block content
     .row
-        .col-md-12
+        .col-md-9
             .form-group
                 input.form-control#searcher(type='search',placeholder='Search package...')
             .form-group
@@ -14,5 +14,10 @@ block content
                             p.list-group-item-text=library.description
                             p.list-group-item-text.label-group
                                 each keyword in library.keywords
-                                    span.label.label-primary= keyword
-                                
+                                    span.label.label-default= keyword
+        .col-md-3
+            h4 Tag Cloud
+            #tag-cloud.label-group
+                each keyword in keywords
+                    a.label.label-primary(href='/?keyword=' + keyword)= keyword
+                    | 

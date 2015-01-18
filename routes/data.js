@@ -12,7 +12,7 @@ router.get('/:name/:version?', function(req, res) {
 		} else {
 			res.render('data', {
 				library: __library,
-				versions: library.getVersions(name),
+				versions: library.getVersionsByName(name),
 				dump: JSON.stringify(__library, null, '\t')
 			});
 		}

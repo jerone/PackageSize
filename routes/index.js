@@ -8,12 +8,23 @@ var library = require('../controllers/library.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	library.getAll(function(__err, __libraries) {
-		res.render('index', {
-			title: 'PackageSize',
-			libraries: __libraries
+	if (req.query.keyword) {
+		library.getAllByKeyword(req.query.keyword, function(__err, __libraries) {
+			res.render('index', {
+				title: 'PackageSize',
+				libraries: __libraries,
+				keywords: library.getKeywords()
+			});
 		});
-	});
+	} else {
+		library.getAll(function(__err, __libraries) {
+			res.render('index', {
+				title: 'PackageSize',
+				libraries: __libraries,
+				keywords: library.getKeywords()
+			});
+		});
+	}
 });
 
 module.exports = router;

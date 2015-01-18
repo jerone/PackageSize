@@ -6,7 +6,7 @@ var library = require('../controllers/library.js');
 router.get('/:name/:version?', function(req, res) {
 	var name = req.params.name;
 	var version = req.params.version;
-	var versions = library.getVersions(name);
+	var versions = library.getVersionsByName(name);
 	var callback = function(__err, __library) {
 		res.send(__library);
 	};

@@ -10,20 +10,39 @@ function createUrl(name, version, file) {
 	// https://github.com/cdnjs/cdnjs/wiki/Extensions%2C-Plugins%2C-Resources
 }
 
-function getAll(callback) {
-	var libraries = _.map(packages, function(__packages) {
+
+module.exports.getAll = function getAll(callback) {
+	var libraries = _.map(packages, function(__package) {
 		return {
-			name: __packages.name,
-			version: __packages.version,
-			description: __packages.description,
-			keywords: __packages.keywords || []
+			name: __package.name,
+			version: __package.version,
+			description: __package.description,
+			keywords: __package.keywords || []
 		};
 	});
 	callback(null, libraries);
-}
-module.exports.getAll = getAll;
+};
 
-function getVersions(name) {
+
+module.exports.getAllByKeyword = function getAllByKeyword(keyword, callback) {
+	keyword = keyword.toLowerCase();
+	var libraries = _.map(_.filter(packages, function(__package) {
+		return _.some(__package.keywords, function(__keyword) {
+			return __keyword.toLowerCase() === keyword;
+		});
+	}), function(__package) {
+		return {
+			name: __package.name,
+			version: __package.version,
+			description: __package.description,
+			keywords: __package.keywords || []
+		};
+	});
+	callback(null, libraries);
+};
+
+
+module.exports.getVersionsByName = function getVersionsByName(name) {
 	var package = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
@@ -31,18 +50,31 @@ function getVersions(name) {
 	return package.assets.map(function(__asset) {
 		return __asset.version;
 	});
-}
-module.exports.getVersions = getVersions;
+};
 
-function getByName(name, callback) {
+
+module.exports.getKeywords = function getKeywords() {
+	return _.reduce(_.countBy(_.compact(_.flatten(_.pluck(packages, 'keywords'), true)), function(a) {
+		return a.toLowerCase();
+	}), function(o, v, k) {
+		if (v > 1) {
+			o.push(k);
+		}
+		return o;
+	}, []).sort(function(a, b) {
+		return a.toLowerCase().localeCompare(b.toLowerCase());
+	});
+};
+
+
+module.exports.getByName = function getByName(name, callback) {
 	return get(name, null, callback);
-}
-module.exports.getByName = getByName;
+};
 
-function getByVersion(name, version, callback) {
+
+module.exports.getByVersion = function getByVersion(name, version, callback) {
 	return get(name, version, callback);
 };
-module.exports.getByVersion = getByVersion;
 
 function get(name, version, callback) {
 	var package = _.find(packages, function(__package) {

@@ -21,7 +21,7 @@ block content
     
     p.label-group
         each keyword in library.keywords
-            span.label.label-primary= keyword
+            a.label.label-primary(href='/?keyword=' + keyword)= keyword
     
     p= library.description
 

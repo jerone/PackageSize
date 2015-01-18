@@ -13,3 +13,6 @@ body {
 .list-group > .active a {
   color: #d9edf7;
 }
+#tag-cloud {
+  text-align: justify;
+}
