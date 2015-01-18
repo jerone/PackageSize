@@ -1,6 +1,8 @@
 ﻿PackageSize
 ===========
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jerone/PackageSize?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Dependency Status](https://david-dm.org/jerone/PackageSize.svg?theme=shields.io)](https://david-dm.org/jerone/PackageSize)
 [![devDependency Status](https://david-dm.org/jerone/PackageSize/dev-status.svg?theme=shields.io)](https://david-dm.org/jerone/PackageSize#info=devDependencies)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/jerone/PackageSize/blob/master/LICENSE.md)
