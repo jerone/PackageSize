@@ -89,24 +89,30 @@ function get(name, version, callback) {
 	var parallel = asset.files.map(function(__file) {
 		return function(__callback) {
 			var url = createUrl(package.name, version, __file.name);
-			getSize(url, function(__size) {
-				__callback(null, {
-					file: __file.name,
-					size: __size
-				});
+			getSize(url, function(err, size) {
+				if (err) {
+					__callback(err);
+				} else {
+					__callback(null, {
+						file: __file.name,
+						size: size
+					});
+				}
 			});
 		};
 	});
 
 	async.parallel(parallel, function(err, assets) {
-		var library = {
-			name: name,
-			version: version,
-			description: package.description,
-			keywords: package.keywords || [],
-			assets: assets
-		};
-
-		callback(null, library);
+		if (err) {
+			callback(err);
+		} else {
+			callback(null, {
+				name: name,
+				version: version,
+				description: package.description,
+				keywords: package.keywords || [],
+				assets: assets
+			});
+		}
 	});
 }

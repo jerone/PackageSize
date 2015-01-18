@@ -1,20 +1,20 @@
 var express = require('express');
 var router = express.Router();
 
-var library = require('../controllers/library.js');
+var Library = require('../controllers/library.js');
 
 router.get('/:name/:version?', function(req, res) {
 	var name = req.params.name;
 	var version = req.params.version;
-	var versions = library.getVersionsByName(name);
+	var versions = Library.getVersionsByName(name);
 	var callback = function(__err, __library) {
 		res.send(__library);
 	};
 
 	if (version) {
-		library.getByVersion(name, version, callback);
+		Library.getByVersion(name, version, callback);
 	} else {
-		library.getByName(name, callback);
+		Library.getByName(name, callback);
 	}
 });
 

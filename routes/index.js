@@ -4,24 +4,24 @@ var express = require('express');
 var router = express.Router();
 var _ = require('underscore');
 
-var library = require('../controllers/library.js');
+var Library = require('../controllers/library.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
 	if (req.query.keyword) {
-		library.getAllByKeyword(req.query.keyword, function(__err, __libraries) {
+		Library.getAllByKeyword(req.query.keyword, function(__err, __libraries) {
 			res.render('index', {
 				title: 'PackageSize',
 				libraries: __libraries,
-				keywords: library.getKeywords()
+				keywords: Library.getKeywords()
 			});
 		});
 	} else {
-		library.getAll(function(__err, __libraries) {
+		Library.getAll(function(__err, __libraries) {
 			res.render('index', {
 				title: 'PackageSize',
 				libraries: __libraries,
-				keywords: library.getKeywords()
+				keywords: Library.getKeywords()
 			});
 		});
 	}

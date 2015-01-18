@@ -1,27 +1,32 @@
 var express = require('express');
 var router = express.Router();
 
-var library = require('../controllers/library.js');
+var Library = require('../controllers/library.js');
 
 router.get('/:name/:version?', function(req, res) {
 	var name = req.params.name;
 	var version = req.params.version;
-	var callback = function(__err, __library) {
-		if (req.xhr) {
-			res.send(__library);
+	var callback = function(err, library) {
+		if (err) {
+			console.log(err);
 		} else {
-			res.render('data', {
-				library: __library,
-				versions: library.getVersionsByName(name),
-				dump: JSON.stringify(__library, null, '\t')
-			});
+			if (req.xhr) {
+				res.send(library);
+			} else {
+				res.render('data', {
+					title: name + ' | PackageSize',
+					library: library,
+					versions: Library.getVersionsByName(name),
+					dump: JSON.stringify(library, null, '\t')
+				});
+			}
 		}
 	};
 
 	if (version) {
-		library.getByVersion(name, version, callback);
+		Library.getByVersion(name, version, callback);
 	} else {
-		library.getByName(name, callback);
+		Library.getByName(name, callback);
 	}
 });
 
