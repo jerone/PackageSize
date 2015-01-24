@@ -8,7 +8,7 @@ module.exports.getSize = function getSize(file, next) {
 	request.get({
 			url: url.parse(file)
 		}, function(err, res, body) {
-			if (res.statusCode == 200) {
+			if (!err && res.statusCode === 200) {
 				if (res.headers && res.headers['content-length']) {
 					compressed = parseInt(res.headers['content-length'], 10);
 				} else {
