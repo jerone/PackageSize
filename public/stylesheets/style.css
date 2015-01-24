@@ -1,8 +1,8 @@
 body {
   padding-top: 20px;
 }
-.navbar {
-  margin-bottom: 20px;
+#tag-cloud {
+  text-align: justify;
 }
 /* More space between labels; */
 .label-group .label {
@@ -13,6 +13,36 @@ body {
 .list-group > .active a {
   color: #d9edf7;
 }
-#tag-cloud {
-  text-align: justify;
+/* Conform list groups to bootstrap-material-design; */
+.list-group-item-heading {
+  margin-top: 5px;
+}
+.list-group .list-group-item::after {
+  content: "";
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  display: block;
+}
+.list-group .list-group-item:last-child::after {
+  content: "";
+  border-bottom: 0 none;
+  display: block;
+}
+/* Conform badge to bootstrap-material-design; */
+.badge {
+  border-radius: 0;
+}
+/* dl's could be smaller; */
+@media (min-width: 380px) {
+  .dl-horizontal dt {
+    float: left;
+    width: 160px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dl-horizontal dd {
+    margin-left: 180px;
+  }
 }

@@ -2,14 +2,11 @@
 html
     head
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        script(src='/vendor/jquery/jquery.min.js')
-        script(src='/vendor/bootstrap/js/bootstrap.min.js')
-        script(src='/vendor/bootstrap-list-filter/bootstrap-list-filter.src.js')
-        script(src='/js/script.js')
         link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap-theme.min.css')
-
+        link(rel='stylesheet', href='/vendor/bootstrap-material-design/css/material.min.css')
+        link(rel='stylesheet', href='/vendor/bootstrap-material-design/css/ripples.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+                        
     body
         .container
             nav.navbar.navbar-default
@@ -33,3 +30,10 @@ html
 
         footer.footer.container
             p.text-muted &copy; #{new Date().getFullYear()} Jeroen van Warmerdam. All Rights Reserved. 
+
+        script(src='/vendor/jquery/jquery.min.js')
+        script(src='/vendor/bootstrap/js/bootstrap.min.js')
+        script(src='/vendor/bootstrap-material-design/js/material.min.js')
+        script(src='/vendor/bootstrap-material-design/js/ripples.min.js')
+        script(src='/vendor/bootstrap-list-filter/bootstrap-list-filter.src.js')
+        script(src='/js/script.js')

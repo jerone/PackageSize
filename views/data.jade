@@ -14,26 +14,36 @@ block content
             | &nbsp;(
             a(href='/api/' + library.name + '/' + library.version) json
             | )
-
-    h1= library.name
-        | &nbsp;
-        small= library.version
-    
-    p.label-group
-        each keyword in library.keywords
-            a.label.label-primary(href='/?keyword=' + keyword)= keyword
-    
-    p= library.description
-
-    #versions.length
-        p
-            ul.list-group
+            
+    .well
+        .pull-right.btn-group
+            a(href="javascript:void(0)" class="btn btn-default dropdown-toggle" data-toggle="dropdown")
+                | #{library.version} &nbsp;
+                span.caret
+            ul.dropdown-menu
                 each subversion in versions
-                    li.list-group-item(class=subversion===library.version?'active':'')
+                    li(class=subversion===library.version?'active':'')
                         a(href='/data/' + library.name + '/' + subversion)= subversion
-                        | &nbsp;(
-                        a(href='/api/' + library.name + '/' + subversion) json
-                        | )
-    hr
+                            
+        h1= library.name
+            |  &nbsp;
+            small= library.version
+        
+        p.label-group
+            each keyword in library.keywords
+                a.label.label-primary(href='/?keyword=' + keyword)= keyword
+        
+        p= library.description
+
+    .well
+        each asset in library.assets
+            h3=asset.file
+            dl.dl-horizontal
+                dt Compressed:
+                dd=asset.size.compressed + ' bytes'
+            dl.dl-horizontal
+                dt Decompressed:
+                dd=asset.size.decompressed + ' bytes'
+                    
     #dump
         pre= dump

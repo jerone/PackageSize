@@ -31,6 +31,11 @@ router.use('/vendor/:vendor/:file', function(req, res, next) {
 				dir = path.join('.', 'bower_components', 'bootstrap-list-filter', req.params.file);
 				break;
 			}
+		case 'bootstrap-material-design':
+			{
+				dir = path.join('.', 'bower_components', 'bootstrap-material-design', 'dist', req.params.file);
+				break;
+			}
 		default:
 			return next();
 	}
