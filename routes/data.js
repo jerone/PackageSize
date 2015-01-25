@@ -6,6 +6,7 @@ var Library = require('../controllers/library.js');
 router.get('/:name/:version?', function(req, res) {
 	var name = req.params.name;
 	var version = req.params.version;
+	var latestVersion = Library.getLatestVersionByName(name);
 	var callback = function(err, library) {
 		if (err) {
 			console.log(err);
@@ -17,6 +18,8 @@ router.get('/:name/:version?', function(req, res) {
 					title: name + ' | PackageSize',
 					library: library,
 					versions: Library.getVersionsByName(name),
+					latestVersion: latestVersion,
+					isLatestVersion: version === undefined || latestVersion === version,
 					dump: JSON.stringify(library, null, '\t')
 				});
 			}

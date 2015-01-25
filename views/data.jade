@@ -14,16 +14,26 @@ block content
             | &nbsp;(
             a(href='/api/' + library.name + '/' + library.version) json
             | )
+    
+    if !isLatestVersion
+        .alert.alert-warning.alert-dismissable
+            button(type='button' class='close' data-dismiss='alert') &times;
+            | This is not the latest version. Click 
+            a(href='/data/' + library.name) 
+                b here to view
+            | &nbsp;the latest version.
             
     .well
         .pull-right.btn-group
-            a(href="javascript:void(0)" class="btn btn-default dropdown-toggle" data-toggle="dropdown")
+            a(href='javascript:void(0)' class='btn btn-default dropdown-toggle' data-toggle='dropdown')
                 | #{library.version} &nbsp;
                 span.caret
             ul.dropdown-menu
                 each subversion in versions
                     li(class=subversion===library.version?'active':'')
                         a(href='/data/' + library.name + '/' + subversion)= subversion
+                            if latestVersion === subversion
+                                strong &nbsp;(latest)
                             
         h1= library.name
             |  &nbsp;

@@ -53,6 +53,15 @@ module.exports.getVersionsByName = function getVersionsByName(name) {
 };
 
 
+module.exports.getLatestVersionByName = function getLatestVersionByName(name) {
+	var package = _.find(packages, function(__package) {
+		return __package.name === name;
+	});
+
+	return package.version;
+};
+
+
 module.exports.getKeywords = function getKeywords() {
 	return _.reduce(_.countBy(_.compact(_.flatten(_.pluck(packages, 'keywords'), true)), function(a) {
 		return a.toLowerCase();
