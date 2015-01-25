@@ -72,6 +72,16 @@ legend {
   .variations(~" li a:hover", color, @primary);
 }
 
+// Active state
+.dropdown-menu > .active > a {
+    &,
+    &:hover,
+    &:focus {
+        .variations(~"", background-color, @primary);
+    }
+}
+
+
 // Alerts
 @import "_alerts.less";
 
