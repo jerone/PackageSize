@@ -94,7 +94,7 @@ function get(name, version, callback) {
 					__callback(err);
 				} else {
 					__callback(null, {
-						file: __file.name,
+						name: __file.name,
 						size: size
 					});
 				}

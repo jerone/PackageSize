@@ -37,7 +37,7 @@ block content
 
     .well
         each asset in library.assets
-            h3=asset.file
+            h3=asset.name
             dl.dl-horizontal
                 dt Compressed:
                 dd=asset.size.compressed + ' bytes'
