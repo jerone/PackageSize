@@ -24,16 +24,17 @@ block content
             | &nbsp;the latest version.
             
     .well
-        .pull-right.btn-group
-            a(href='javascript:void(0)' class='btn btn-default dropdown-toggle' data-toggle='dropdown')
-                | #{library.version} &nbsp;
-                span.caret
-            ul.dropdown-menu
-                each subversion in versions
-                    li(class=subversion===library.version?'active':'')
-                        a(href='/data/' + library.name + '/' + subversion)= subversion
-                            if latestVersion === subversion
-                                strong &nbsp;(latest)
+        if versions.length > 1
+            .pull-right.btn-group
+                a(href='javascript:void(0)' class='btn btn-default dropdown-toggle' data-toggle='dropdown')
+                    | #{library.version} &nbsp;
+                    span.caret
+                ul.dropdown-menu
+                    each subversion in versions
+                        li(class=subversion===library.version?'active':'')
+                            a(href='/data/' + library.name + '/' + subversion)= subversion
+                                if latestVersion === subversion
+                                    strong &nbsp;(latest)
                             
         h1= library.name
             |  &nbsp;
