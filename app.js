@@ -11,6 +11,7 @@ var _ = require('underscore');
 
 /* Variables; */
 var app = express();
+app.locals.pretty = app.get('env') === 'development';
 
 
 /* View Engine Middleware; */
