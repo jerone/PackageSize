@@ -1,32 +1,31 @@
 body {
-  padding-top: 20px;
-}
+  padding-top: 20px; }
+
 #tag-cloud {
-  text-align: justify;
-}
+  text-align: justify; }
+
 /* More space between labels; */
 .label-group .label {
   margin-right: 5px;
-  display: inline-block;
-}
+  display: inline-block; }
+
 /* Conform list groups to bootstrap-material-design; */
 .list-group-item-heading {
-  margin-top: 5px;
-}
+  margin-top: 5px; }
+
 .list-group .list-group-item::after {
   content: "";
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  display: block;
-}
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: block; }
 .list-group .list-group-item:last-child::after {
   content: "";
   border-bottom: 0 none;
-  display: block;
-}
+  display: block; }
+
 /* Conform badge to bootstrap-material-design; */
 .badge {
-  border-radius: 0;
-}
+  border-radius: 0; }
+
 /* dl's could be smaller; */
 @media (min-width: 380px) {
   .dl-horizontal dt {
@@ -36,9 +35,7 @@ body {
     clear: left;
     text-align: right;
     text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+    white-space: nowrap; }
   .dl-horizontal dd {
-    margin-left: 180px;
-  }
-}
+    margin-left: 180px; }
+ }

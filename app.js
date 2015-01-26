@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }));
 app.use(cookieParser());
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+app.use(require('node-sass-middleware')({ src: path.join(__dirname, 'public')}));
 
 
 /* Static routes; */
