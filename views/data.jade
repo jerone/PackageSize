@@ -29,7 +29,7 @@ block content
                 a(href='javascript:void(0)' class='btn btn-default dropdown-toggle' data-toggle='dropdown')
                     | #{library.version} &nbsp;
                     span.caret
-                ul.dropdown-menu
+                ul.dropdown-menu.pkg-versions
                     each subversion in versions
                         li(class=subversion===library.version?'active':'')
                             a(href='/data/' + library.name + '/' + subversion)= subversion
@@ -40,7 +40,7 @@ block content
             |  &nbsp;
             small= library.version
         
-        p.label-group
+        p.pkg-label-group
             each keyword in library.keywords
                 a.label.label-primary(href='/?keyword=' + keyword)= keyword
         

@@ -1,18 +1,18 @@
 body {
   padding-top: 20px; }
 
-#tag-cloud {
+/* Justify all tags; */
+.pkg-tag-cloud {
   text-align: justify; }
 
 /* More space between labels; */
-.label-group .label {
+.pkg-label-group .label {
   margin-right: 5px;
   display: inline-block; }
 
 /* Conform list groups to bootstrap-material-design; */
-.list-group-item-heading {
+.list-group .list-group-item-heading {
   margin-top: 5px; }
-
 .list-group .list-group-item::after {
   content: "";
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -26,7 +26,11 @@ body {
 .badge {
   border-radius: 0; }
 
-/* dl's could be smaller; */
+/* Center align dropdown items; */
+.pkg-versions {
+  text-align: center; }
+
+/* Make dl's smaller; */
 @media (min-width: 380px) {
   .dl-horizontal dt {
     float: left;

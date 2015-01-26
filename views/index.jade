@@ -14,16 +14,15 @@ block content
                                     span.badge= library.version
                                     h3.list-group-item-heading= library.name
                                     p.list-group-item-text=library.description
-                                    p.list-group-item-text.label-group
+                                    p.list-group-item-text.pkg-label-group
                                         each keyword in library.keywords
                                             span.label.label-default= keyword
-                            //-    .list-group-separator
         .col-md-3
             .panel.panel-primary
                 .panel-heading
                     h4 Tag Cloud
                 .panel-body
-                    #tag-cloud
+                    .pkg-tag-cloud
                         each keyword in keywords
                             a.label.label-primary(href='/?keyword=' + keyword)= keyword
                             | 
