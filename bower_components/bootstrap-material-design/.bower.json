@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-material-design",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "http://fezvrasta.github.io/bootstrap-material-design",
   "authors": [
     "Federico Zivolo <info@mywebexpression.com>"
@@ -10,7 +10,11 @@
     "dist/css/material.css",
     "dist/js/material.js",
     "dist/css/ripples.css",
-    "dist/js/ripples.js"
+    "dist/js/ripples.js",
+    "dist/fonts/Material-Design-Icons.eot",
+    "dist/fonts/Material-Design-Icons.svg",
+    "dist/fonts/Material-Design-Icons.ttf",
+    "dist/fonts/Material-Design-Icons.woff"
   ],
   "ignore": [
     "test",
@@ -41,14 +45,13 @@
   "dependencies": {
     "jquery": "~2.1.1"
   },
-  "_release": "0.2.1",
+  "_release": "0.2.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.2.1",
-    "commit": "e13ed0f9ab486071c13520f37851125ab49725d9"
+    "tag": "0.2.2",
+    "commit": "8abba8caf4067284b6c03a6b045aa04fc63c4448"
   },
   "_source": "git://github.com/FezVrasta/bootstrap-material-design.git",
-  "_target": "~0.2.1",
-  "_originalSource": "bootstrap-material-design",
-  "_direct": true
+  "_target": "~0.2.2",
+  "_originalSource": "bootstrap-material-design"
 }
