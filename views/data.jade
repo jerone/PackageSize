@@ -39,6 +39,11 @@ block content
         h1= library.name
             |  &nbsp;
             small= library.version
+            
+        if library.homepage
+            p
+                a(href=library.homepage target='_blank')= library.homepage + ' '
+                    i.mdi-action-open-in-new
         
         p.pkg-label-group
             each keyword in library.keywords

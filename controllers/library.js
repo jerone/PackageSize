@@ -119,6 +119,7 @@ function get(name, version, callback) {
 				name: name,
 				version: version,
 				description: package.description,
+				homepage: package.homepage,
 				keywords: package.keywords || [],
 				assets: assets
 			});
