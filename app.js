@@ -11,7 +11,8 @@ var _ = require('underscore');
 
 /* Variables; */
 var app = express();
-app.locals.pretty = app.get('env') === 'development';
+var isDebug = app.get('env') === 'development';
+app.locals.pretty = isDebug;
 
 
 /* View Engine Middleware; */
@@ -20,13 +21,16 @@ app.set('view engine', 'jade');
 
 
 /* Middleware; */
-app.use(logger('dev'));
+isDebug && app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
 app.use(cookieParser());
-app.use(require('node-sass-middleware')({ src: path.join(__dirname, 'public')}));
+app.use(require('node-sass-middleware')({
+	src: path.join(__dirname, 'public', 'css'),
+	debug: isDebug
+}));
 
 
 /* Static routes; */
