@@ -104,7 +104,8 @@ function get(name, version, callback) {
 				} else {
 					__callback(null, {
 						name: __file.name,
-						size: size
+						size: size,
+						link: url
 					});
 				}
 			});
