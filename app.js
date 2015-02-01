@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(require('node-sass-middleware')({
-	src: path.join(__dirname, 'public', 'css'),
+	src: path.join(__dirname, 'public'),
 	debug: isDebug
 }));
 
