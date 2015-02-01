@@ -2,6 +2,15 @@
 body {
     padding-top: 20px;
 }
+// External link icons;
+a {
+    & > i {
+        visibility: hidden;
+    }
+    &:hover > i {
+        visibility: visible;
+    }
+}
 // Justify all tags;
 .pkg-tag-cloud {
     text-align: justify;
@@ -63,9 +72,7 @@ body {
         .row-#{$selector}-flex {
             &,
             & > div[class*=#{col($selector)}] {
-                display: -webkit-flex;
                 display: flex;
-                -webkit-flex: 1 1 auto;
                 flex: 1 1 auto;
             }
             & > div[class*=#{col($selector)}] {

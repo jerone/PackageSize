@@ -1,6 +1,11 @@
 body {
   padding-top: 20px; }
 
+a > i {
+  visibility: hidden; }
+a:hover > i {
+  visibility: visible; }
+
 .pkg-tag-cloud {
   text-align: justify; }
 
