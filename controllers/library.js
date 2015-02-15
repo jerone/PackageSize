@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('underscore');
 var async = require('async');
 var debug = require('debug')('packagesize:library');
@@ -14,6 +16,7 @@ function createUrl(name, version, file) {
 
 module.exports.getAll = function getAll(callback) {
 	debug('getAll()');
+
 	var libraries = _.map(packages, function(__package) {
 		return {
 			name: __package.name,
@@ -28,6 +31,7 @@ module.exports.getAll = function getAll(callback) {
 
 module.exports.getAllByKeyword = function getAllByKeyword(keyword, callback) {
 	debug('getAllByKeyword(%o)', keyword);
+
 	keyword = keyword.toLowerCase();
 	var libraries = _.map(_.filter(packages, function(__package) {
 		return _.some(__package.keywords, function(__keyword) {
@@ -47,11 +51,12 @@ module.exports.getAllByKeyword = function getAllByKeyword(keyword, callback) {
 
 module.exports.getVersionsByName = function getVersionsByName(name) {
 	debug('getVersionsByName(%o)', name);
-	var package = _.find(packages, function(__package) {
+
+	var pckg = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
 
-	return package.assets.map(function(__asset) {
+	return pckg.assets.map(function(__asset) {
 		return __asset.version;
 	});
 };
@@ -59,16 +64,18 @@ module.exports.getVersionsByName = function getVersionsByName(name) {
 
 module.exports.getLatestVersionByName = function getLatestVersionByName(name) {
 	debug('getLatestVersionByName(%o)', name);
-	var package = _.find(packages, function(__package) {
+
+	var pckg = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
 
-	return package.version;
+	return pckg.version;
 };
 
 
 module.exports.getKeywords = function getKeywords() {
 	debug('getKeywords()');
+
 	return _.reduce(_.countBy(_.compact(_.flatten(_.pluck(packages, 'keywords'), true)), function(a) {
 		return a.toLowerCase();
 	}), function(o, v, k) {
@@ -95,18 +102,19 @@ module.exports.getByVersion = function getByVersion(name, version, callback) {
 
 function get(name, version, callback) {
 	debug('get(%o, %o)', name, version);
-	var package = _.find(packages, function(__package) {
+
+	var pckg = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
 
-	version = version || package.version;
-	var asset = _.find(package.assets, function(__asset) {
+	version = version || pckg.version;
+	var asset = _.find(pckg.assets, function(__asset) {
 		return __asset.version === version;
 	});
 
 	var parallel = asset.files.map(function(__file) {
 		return function(__callback) {
-			var url = createUrl(package.name, version, __file.name);
+			var url = createUrl(pckg.name, version, __file.name);
 			getSize(url, function(err, size) {
 				if (err) {
 					__callback(err);
@@ -153,9 +161,9 @@ function get(name, version, callback) {
 			callback(null, {
 				name: name,
 				version: version,
-				description: package.description,
-				homepage: package.homepage,
-				keywords: package.keywords || [],
+				description: pckg.description,
+				homepage: pckg.homepage,
+				keywords: pckg.keywords || [],
 				assets: assets
 			});
 		}
