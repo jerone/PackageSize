@@ -1,9 +1,9 @@
 ﻿#!/usr/bin/env node
-var debug = require('debug')('PackageSize');
+var debug = require('debug')('packagesize:www');
 var app = require('../app');
 
 app.set('port', process.env.PORT || 1337);
 
 var server = app.listen(app.get('port'), function() {
-    debug('Express server listening on port ' + server.address().port);
+    debug('Server listening on port %o', server.address().port);
 });

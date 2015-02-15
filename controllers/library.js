@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var async = require('async');
+var debug = require('debug')('packagesize:library');
 
 var getSize = require('../helpers/size.js').getSize;
 
@@ -12,6 +13,7 @@ function createUrl(name, version, file) {
 
 
 module.exports.getAll = function getAll(callback) {
+	debug('getAll()');
 	var libraries = _.map(packages, function(__package) {
 		return {
 			name: __package.name,
@@ -25,6 +27,7 @@ module.exports.getAll = function getAll(callback) {
 
 
 module.exports.getAllByKeyword = function getAllByKeyword(keyword, callback) {
+	debug('getAllByKeyword(%o)', keyword);
 	keyword = keyword.toLowerCase();
 	var libraries = _.map(_.filter(packages, function(__package) {
 		return _.some(__package.keywords, function(__keyword) {
@@ -43,6 +46,7 @@ module.exports.getAllByKeyword = function getAllByKeyword(keyword, callback) {
 
 
 module.exports.getVersionsByName = function getVersionsByName(name) {
+	debug('getVersionsByName(%o)', name);
 	var package = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
@@ -54,6 +58,7 @@ module.exports.getVersionsByName = function getVersionsByName(name) {
 
 
 module.exports.getLatestVersionByName = function getLatestVersionByName(name) {
+	debug('getLatestVersionByName(%o)', name);
 	var package = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
@@ -63,6 +68,7 @@ module.exports.getLatestVersionByName = function getLatestVersionByName(name) {
 
 
 module.exports.getKeywords = function getKeywords() {
+	debug('getKeywords()');
 	return _.reduce(_.countBy(_.compact(_.flatten(_.pluck(packages, 'keywords'), true)), function(a) {
 		return a.toLowerCase();
 	}), function(o, v, k) {
@@ -77,15 +83,18 @@ module.exports.getKeywords = function getKeywords() {
 
 
 module.exports.getByName = function getByName(name, callback) {
+	debug('getByName(%o)', name);
 	return get(name, null, callback);
 };
 
 
 module.exports.getByVersion = function getByVersion(name, version, callback) {
+	debug('getByVersion(%o, %o)', name, version);
 	return get(name, version, callback);
 };
 
 function get(name, version, callback) {
+	debug('get(%o, %o)', name, version);
 	var package = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
