@@ -112,10 +112,35 @@ function get(name, version, callback) {
 		};
 	});
 
-	async.parallel(parallel, function(err, assets) {
+	async.parallel(parallel, function(err, __assets) {
 		if (err) {
 			callback(err);
 		} else {
+			var assets = {
+				'/': []
+			};
+
+			_.each(__assets, function(__asset) {
+				var recursive = assets;
+
+				// Check if asset name is actually part of a path;
+				if (__asset.name.indexOf('/') >= 0) {
+					var folders = __asset.name.split('/');
+
+					// Remove file name;
+					folders.pop();
+
+					// Loop through folders;
+					for (var folder in folders) {
+						recursive = recursive[folders[folder]] || (recursive[folders[folder]] = {
+							'/': []
+						});
+					}
+				}
+
+				recursive['/'].push(__asset);
+			});
+
 			callback(null, {
 				name: name,
 				version: version,

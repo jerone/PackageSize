@@ -40,35 +40,38 @@ a:hover > i {
     text-overflow: ellipsis;
     white-space: nowrap; }
   .dl-horizontal dd {
-    margin-left: 180px; }
- }
+    margin-left: 180px; } }
 
 @media (min-width: 1200px) {
   .row-lg-flex, .row-lg-flex > div[class*=col-lg-] {
     display: flex;
     flex: 1 1 auto; }
   .row-lg-flex > div[class*=col-lg-] {
-    margin: -0.2px; }
+    margin: -.2px; }
   .row-lg-flex > div[class*=col-lg-] > div {
-    width: 100%; }
- }
+    width: 100%; } }
 
 @media (min-width: 992px) {
   .row-md-flex, .row-md-flex > div[class*=col-md-] {
     display: flex;
     flex: 1 1 auto; }
   .row-md-flex > div[class*=col-md-] {
-    margin: -0.2px; }
+    margin: -.2px; }
   .row-md-flex > div[class*=col-md-] > div {
-    width: 100%; }
- }
+    width: 100%; } }
 
 @media (min-width: 768px) {
   .row-sm-flex, .row-sm-flex > div[class*=col-sm-] {
     display: flex;
     flex: 1 1 auto; }
   .row-sm-flex > div[class*=col-sm-] {
-    margin: -0.2px; }
+    margin: -.2px; }
   .row-sm-flex > div[class*=col-sm-] > div {
-    width: 100%; }
- }
+    width: 100%; } }
+
+.panel-title > .small, .panel-title > .small > a, .panel-title > a, .panel-title > small, .panel-title > small > a {
+  color: inherit;
+  display: inline-block;
+  margin: -10px -15px;
+  padding: 10px 15px;
+  width: 100%; }

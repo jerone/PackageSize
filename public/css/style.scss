@@ -88,3 +88,15 @@ a {
 @include flex(1200px, 'lg');
 @include flex(992px, 'md');
 @include flex(768px, 'sm');
+// Improve links in panel headers;
+.panel-title > .small,
+.panel-title > .small > a,
+.panel-title > a,
+.panel-title > small,
+.panel-title > small > a {
+    color: inherit;
+    display: inline-block;
+    margin: -10px -15px;
+    padding: 10px 15px;
+    width: 100%;
+}
