@@ -1,26 +1,29 @@
 {
-  "name": "PackageSize",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
-  },
-  "description": "PackageSize",
-  "author": {
-    "name": "jerone",
-    "email": ""
-  },
-  "dependencies": {
-    "async": "^0.9.0",
-    "body-parser": "^1.10.2",
-    "cookie-parser": "^1.3.3",
-    "debug": "^2.1.1",
-    "express": "^4.11.1",
-    "jade": "^1.9.1",
-    "morgan": "^1.5.1",
-    "node-sass-middleware": "^0.4.0",
-    "request": "^2.51.0",
-    "serve-favicon": "^2.2.0",
-    "underscore": "^1.7.0"
-  }
+	"name": "PackageSize",
+	"description": "PackageSize",
+	"version": "0.0.0",
+	"author": {
+		"name": "jerone",
+		"email": "jeronevw@hotmail.com"
+	},
+	"private": true,
+	"scripts": {
+		"start": "node ./bin/www"
+	},
+	"engines": {
+		"node": "0.12.0"
+	},
+	"dependencies": {
+		"async": "^0.9.0",
+		"body-parser": "^1.12.0",
+		"cookie-parser": "^1.3.3",
+		"debug": "^2.1.1",
+		"express": "^4.11.2",
+		"jade": "^1.9.2",
+		"morgan": "^1.5.1",
+		"node-sass-middleware": "^0.5.0",
+		"request": "^2.53.0",
+		"serve-favicon": "^2.2.0",
+		"underscore": "^1.7.0"
+	}
 }
