@@ -6,7 +6,7 @@ var debug = require('debug')('packagesize:library');
 
 var getSize = require('../helpers/size.js').getSize;
 
-var packages = require(__dirname + '\\..\\data\\packages.json').packages;
+var packages = require(__dirname + '/../data/packages.json').packages;
 
 function createUrl(name, version, file) {
 	return 'http://cdnjs.cloudflare.com/ajax/libs/' + name + '/' + version + '/' + file;
