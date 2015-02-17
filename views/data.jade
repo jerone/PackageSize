@@ -1,0 +1,83 @@
+﻿extends _layout
+
+mixin toFolders(folders, prefix)
+    each folder,key in folders
+        if key!=='/'
+            - var path = prefix.slice(0);
+            - path.push(key);
+            - var id = 'collapse-'+path.join('-');
+            .panel.panel-primary
+                .panel-heading
+                    .panel-title
+                        a(href='#'+id data-toggle='collapse')= path.join('/')
+                .panel-collapse.collapse.in(id=id)
+                    .panel-body
+                        +toFolders(folder, path)
+        else
+            each asset in folder
+                h3: a(href=asset.link target='_blank')= asset.name + ' '
+                    i.mdi-action-open-in-new
+                dl.dl-horizontal
+                    dt Compressed:
+                    dd= asset.size.compressed + ' bytes'
+                    dt Decompressed:
+                    dd= asset.size.decompressed + ' bytes'
+
+block content
+    ol.breadcrumb
+        li
+            a(href='/') home
+        li
+            a(href='/data/' + library.name)= library.name
+            | &nbsp;(
+            a(href='/api/' + library.name) json
+            | )
+        li.active
+            span= library.version
+            | &nbsp;(
+            a(href='/api/' + library.name + '/' + library.version) json
+            | )
+    
+    if !isLatestVersion
+        .alert.alert-warning.alert-dismissable
+            button(type='button' class='close' data-dismiss='alert') &times;
+            | This is not the latest version. Click 
+            a(href='/data/' + library.name): b here to view
+            | &nbsp;the latest version.
+    
+    .row.row-md-flex.row-lg-flex
+        .col-md-7.col-lg-6
+            .well
+                if versions.length > 1
+                    .pull-right.btn-group
+                        a(href='javascript:void(0)' class='btn btn-primary dropdown-toggle' data-toggle='dropdown')
+                            | #{library.version} &nbsp;
+                            span.caret
+                        ul.dropdown-menu.pkg-versions
+                            each subversion in versions
+                                li(class=subversion===library.version?'active':'')
+                                    a(href='/data/' + library.name + '/' + subversion)= subversion
+                                        if latestVersion === subversion
+                                            strong &nbsp;(latest)
+                                    
+                h1= library.name
+                    |  &nbsp;
+                    small= library.version
+                    
+                if library.homepage
+                    p
+                        a(href=library.homepage target='_blank')= library.homepage + ' '
+                            i.mdi-action-open-in-new
+                
+                p.pkg-label-group
+                    each keyword in library.keywords
+                        a.label.label-primary(href='/?keyword=' + keyword)= keyword
+                
+                p= library.description
+
+        .col-md-5.col-lg-6
+            .well                
+                +toFolders(library.assets, [])
+                    
+    #dump
+        pre= dump

@@ -1,0 +1,28 @@
+﻿extends _layout
+
+block content
+    .row
+        .col-md-9
+            .well
+                .form
+                    .form-group
+                        input.form-control.input-lg#searcher(type='search',placeholder='Search package...')
+                    .form-group
+                        .list-group#libraries
+                            each library in libraries
+                                a(href='/data/' + library.name).list-group-item
+                                    span.badge= library.version
+                                    h3.list-group-item-heading= library.name
+                                    p.list-group-item-text=library.description
+                                    p.list-group-item-text.pkg-label-group
+                                        each keyword in library.keywords
+                                            span.label.label-default= keyword
+        .col-md-3
+            .panel.panel-primary
+                .panel-heading
+                    h4 Tag Cloud
+                .panel-body
+                    .pkg-tag-cloud
+                        each keyword in keywords
+                            a.label.label-primary(href='/?keyword=' + keyword)= keyword
+                            | 

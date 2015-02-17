@@ -1,0 +1,102 @@
+// Common;
+body {
+    padding-top: 20px;
+}
+// External link icons;
+a {
+    & > i {
+        visibility: hidden;
+    }
+    &:hover > i {
+        visibility: visible;
+    }
+}
+// Justify all tags;
+.pkg-tag-cloud {
+    text-align: justify;
+}
+// More space between labels;
+.pkg-label-group .label {
+    margin-right: 5px;
+    display: inline-block;
+}
+// Conform list groups to bootstrap-material-design;
+.list-group {
+    .list-group-item-heading {
+        margin-top: 5px;
+    }
+    .list-group-item {
+        &::after {
+            content: "";
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+        &:last-child::after {
+            content: "";
+            border-bottom: 0 none;
+            display: block;
+        }
+    }
+}
+// Conform badge to bootstrap-material-design;
+.badge {
+    border-radius: 0;
+}
+// Center align dropdown items;
+.pkg-versions {
+    text-align: center;
+}
+// Make dl's smaller;
+@media (min-width: 380px) {
+    .dl-horizontal {
+        dt {
+            float: left;
+            width: 160px;
+            overflow: hidden;
+            clear: left;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        dd {
+            margin-left: 180px;
+        }
+    }
+}
+// Flex columns;
+@function col($size) {
+    @return 'col-'+$size+'-';
+}
+@mixin flex($width, $selector) {
+    @media (min-width: $width) {
+        .row-#{$selector}-flex {
+            &,
+            & > div[class*=#{col($selector)}] {
+                display: flex;
+                flex: 1 1 auto;
+            }
+            & > div[class*=#{col($selector)}] {
+                // hack adjust for wrapping
+                margin: -.2px;
+            }
+            & > div[class*=#{col($selector)}] > div {
+                width: 100%;
+            }
+        }
+    }
+}
+@include flex(1200px, 'lg');
+@include flex(992px, 'md');
+@include flex(768px, 'sm');
+// Improve links in panel headers;
+.panel-title > .small,
+.panel-title > .small > a,
+.panel-title > a,
+.panel-title > small,
+.panel-title > small > a {
+    color: inherit;
+    display: inline-block;
+    margin: -10px -15px;
+    padding: 10px 15px;
+    width: 100%;
+}
