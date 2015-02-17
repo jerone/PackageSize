@@ -49,7 +49,7 @@ Please use the following conventions:
     * :shirt: `:shirt:` when removing linter warnings.
     * :package::arrow_up: `:package::arrow_up:` when upgrading dependencies.
     * :package::arrow_down: `:package::arrow_down:` when downgrading dependencies.
-    * :clapper: `:clapper:` for initial commits.
+    * :clapper: `:clapper:` for the initial commit and project snapshots.
     * :soon: `:soon:` for TODO messages.
     * :checkered_flag: `:checkered_flag:` when fixing something on Windows.
     * :penguin: `:penguin:` when fixing something on Linux.
