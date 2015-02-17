@@ -29,7 +29,10 @@ html
             block content
 
         footer.footer.container
-            p.text-muted &copy; #{new Date().getFullYear()} Jeroen van Warmerdam. All Rights Reserved. 
+            p.pull-left.text-muted 
+                | &copy; 2014 - #{new Date().getFullYear()} Jeroen van Warmerdam. 
+                | All Rights Reserved. 
+            p.pull-right: small v#{version}
 
         script(src='/vendor/jquery/jquery.min.js')
         script(src='/vendor/bootstrap/js/bootstrap.min.js')

@@ -7,13 +7,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
+var pjson = require('./package.json');
 
 
 /* Variables; */
 var app = express();
 var isDebug = app.get('env') === 'development';
 app.locals.pretty = isDebug;
-
 
 /* View Engine Middleware; */
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +31,10 @@ app.use(require('node-sass-middleware')({
 	src: path.join(__dirname, 'public'),
 	debug: isDebug
 }));
+app.use(function(req, res, next){
+	res.locals.version = pjson.version;
+	return next();
+})
 
 
 /* Static routes; */
