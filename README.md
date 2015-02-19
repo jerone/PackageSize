@@ -1,10 +1,10 @@
 ﻿PackageSize
 ===========
 
+![GitHub Release](https://img.shields.io/github/release/jerone/PackageSize.svg)
 [![Dependency Status](https://david-dm.org/jerone/PackageSize.svg?theme=shields.io)](https://david-dm.org/jerone/PackageSize)
-[![devDependency Status](https://david-dm.org/jerone/PackageSize/dev-status.svg?theme=shields.io)](https://david-dm.org/jerone/PackageSize#info=devDependencies)
-[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/jerone/PackageSize/blob/master/LICENSE.md)
-[![Gitter chat](https://badges.gitter.im/jerone/PackageSize.svg)](https://gitter.im/jerone/PackageSize)
+[![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/jerone/PackageSize/blob/master/LICENSE.md)
+[![Gitter chat](https://img.shields.io/badge/Gitter-online-brightgreen.svg)](https://gitter.im/jerone/PackageSize)
 
 PackageSize is a website that shows the **file size** from the files used within
 the most common packages (including **JavaScript/CSS frameworks & libraries**).
