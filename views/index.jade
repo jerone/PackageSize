@@ -25,7 +25,7 @@ block content
                     .pkg-tag-cloud
                         each keyword in topKeywords
                             span.pkg-tag-cloud-item
-                                a.label.label-primary(href='/?keyword=' + keyword[0])
+                                a.label(href='/?keyword=' + keyword[0], class=currentKeyword&&currentKeyword===keyword[0]?'label-info':'label-primary')
                                     span= keyword[0]
                                     span.badge= keyword[1]
                             | 
@@ -35,5 +35,5 @@ block content
                 .panel-body
                     .pkg-tag-cloud
                         each keyword in keywords
-                            a.label.label-primary(href='/?keyword=' + keyword)= keyword
+                            a.label(href='/?keyword=' + keyword, class=currentKeyword&&currentKeyword===keyword?'label-info':'label-primary')= keyword
                             | 

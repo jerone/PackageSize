@@ -4,6 +4,7 @@
 
 * Added top 10 tags cloud;
 * Implemented Google Analytics;
+* Highlight active tag;
 
 ## :bug: Bugs:
 

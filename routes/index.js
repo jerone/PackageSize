@@ -14,7 +14,8 @@ router.get('/', function(req, res) {
 				title: 'PackageSize',
 				libraries: __libraries,
 				topKeywords: Library.getTopKeywords(),
-				keywords: Library.getKeywords()
+				keywords: Library.getKeywords(),
+				currentKeyword: req.query.keyword
 			});
 		});
 	} else {
