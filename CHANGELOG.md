@@ -1,5 +1,9 @@
 # vNext
 
+## :sparkles: Features:
+
+* Added top 10 tags cloud;
+
 ## :bug: Bugs:
 
 * Fix for getting the packages.json on non-windows OS;

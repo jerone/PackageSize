@@ -14,11 +14,20 @@ a {
 // Justify all tags;
 .pkg-tag-cloud {
     text-align: justify;
+    .pkg-tag-cloud-item {
+        white-space: nowrap;
+        .badge {
+            display: inline;
+            font-size: 100%;
+            margin: 0 -0.6em 0 0.3em;
+            padding: 0.2em 0.5em 0.3em;
+        }
+    }
 }
 // More space between labels;
 .pkg-label-group .label {
-    margin-right: 5px;
     display: inline-block;
+    margin-right: 5px;
 }
 // Conform list groups to bootstrap-material-design;
 .list-group {
@@ -27,13 +36,13 @@ a {
     }
     .list-group-item {
         &::after {
-            content: "";
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            content: "";
             display: block;
         }
         &:last-child::after {
-            content: "";
             border-bottom: 0 none;
+            content: "";
             display: block;
         }
     }
@@ -50,13 +59,13 @@ a {
 @media (min-width: 380px) {
     .dl-horizontal {
         dt {
-            float: left;
-            width: 160px;
-            overflow: hidden;
             clear: left;
+            float: left;
+            overflow: hidden;
             text-align: right;
             text-overflow: ellipsis;
             white-space: nowrap;
+            width: 160px;
         }
         dd {
             margin-left: 180px;

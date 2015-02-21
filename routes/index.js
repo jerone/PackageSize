@@ -13,6 +13,7 @@ router.get('/', function(req, res) {
 			res.render('index', {
 				title: 'PackageSize',
 				libraries: __libraries,
+				topKeywords: Library.getTopKeywords(),
 				keywords: Library.getKeywords()
 			});
 		});
@@ -21,6 +22,7 @@ router.get('/', function(req, res) {
 			res.render('index', {
 				title: 'PackageSize',
 				libraries: __libraries,
+				topKeywords: Library.getTopKeywords(),
 				keywords: Library.getKeywords()
 			});
 		});

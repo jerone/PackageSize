@@ -74,19 +74,46 @@ module.exports.getLatestVersionByName = function getLatestVersionByName(name) {
 };
 
 
+module.exports.getTopKeywords = function getTopKeywords() {
+	debug('getTopKeywords()');
+
+	return _(packages)
+		.chain()
+		.pluck('keywords')
+		.flatten(true)
+		.compact()
+		.countBy(function(a) {
+			return a.toLowerCase();
+		})
+		.pairs()
+		.sortBy(1)
+		.reverse()
+		.take(10)
+		.value();
+};
+
+
 module.exports.getKeywords = function getKeywords() {
 	debug('getKeywords()');
 
-	return _.reduce(_.countBy(_.compact(_.flatten(_.pluck(packages, 'keywords'), true)), function(a) {
-		return a.toLowerCase();
-	}), function(o, v, k) {
-		if (v > 1) {
-			o.push(k);
-		}
-		return o;
-	}, []).sort(function(a, b) {
-		return a.toLowerCase().localeCompare(b.toLowerCase());
-	});
+	return _(packages)
+		.chain()
+		.pluck('keywords')
+		.flatten(true)
+		.compact()
+		.countBy(function(a) {
+			return a.toLowerCase();
+		})
+		.reduce(function(o, v, k) {
+			if (v > 1) {
+				o.push(k);
+			}
+			return o;
+		}, [])
+		.value()
+		.sort(function(a, b) {
+			return a.toLowerCase().localeCompare(b.toLowerCase());
+		});
 };
 
 
