@@ -3,6 +3,7 @@
 ## :sparkles: Features:
 
 * Added top 10 tags cloud;
+* Implemented Google Analytics;
 
 ## :bug: Bugs:
 

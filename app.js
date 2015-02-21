@@ -7,6 +7,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
+var ua = require('universal-analytics');
 var pjson = require('./package.json');
 
 
@@ -31,7 +32,10 @@ app.use(require('node-sass-middleware')({
 	src: path.join(__dirname, 'public'),
 	debug: isDebug
 }));
-app.use(function(req, res, next){
+app.use(ua.middleware('UA-1656712-8', {
+	cookieName: '_ga'
+}));
+app.use(function(req, res, next) {
 	res.locals.version = pjson.version;
 	return next();
 })
