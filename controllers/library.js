@@ -4,10 +4,13 @@ var _ = require('underscore');
 var async = require('async');
 var debug = require('debug')('packagesize:library');
 var path = require('path');
+var fs = require('fs');
 
 var getSize = require('../helpers/size.js').getSize;
 
 var packages = require(path.join(__dirname, '..', 'data', 'packages.json')).packages;
+var packageSizeJSON = path.join(__dirname, '..', 'data', 'packagessize.json');
+var OUTOFDATEINTERVAL = 1000 * 60 * 60 * 24; // One day;
 
 function createUrl(name, version, file) {
 	return 'http://cdnjs.cloudflare.com/ajax/libs/' + name + '/' + version + '/' + file;
@@ -128,71 +131,128 @@ module.exports.getByVersion = function getByVersion(name, version, callback) {
 	return get(name, version, callback);
 };
 
+// Check if packageSize is outdated;
+function isOutdated(packageSize) {
+	var now = new Date();
+	var outdated = (now - new Date(packageSize.lastChecked)) > OUTOFDATEINTERVAL;
+	debug('get(%o, %o) -> isOutdated(%o): %o', packageSize.name,
+		packageSize.version, packageSize.lastChecked, outdated);
+	return outdated;
+}
+
+/*
+ * Get package from packagessize.json or alternatifly from packages.json
+ * by name or optional specified version;
+ */
 function get(name, version, callback) {
 	debug('get(%o, %o)', name, version);
 
+	// Find package from external packages.json;
 	var pckg = _.find(packages, function(__package) {
 		return __package.name === name;
 	});
 
+	// Package version or latest from packages.json;
 	version = version || pckg.version;
-	var asset = _.find(pckg.assets, function(__asset) {
-		return __asset.version === version;
-	});
 
-	var parallel = asset.files.map(function(__file) {
-		return function(__callback) {
-			var url = createUrl(pckg.name, version, __file.name);
-			getSize(url, function(err, size) {
+	// Read contents from packagessize.json, if it has contents;
+	fs.readFile(packageSizeJSON, 'utf8', function readPackageSizeJSON(err, data) {
+		var packagesSize = data && JSON.parse(data) || {
+			packages: []
+		};
+
+		// Find correct packageSize by name & version;
+		var packageSize = _.find(packagesSize.packages, function(__packageSize) {
+			return __packageSize.name === name && __packageSize.version === version;
+		});
+
+		var isExistingPackageSize = !!packageSize;
+		debug('get(%o, %o) -> isExistingPackageSize: %o', name, version, isExistingPackageSize);
+
+		// Check if packageSize exists and not is outdated;
+		if (isExistingPackageSize && !isOutdated(packageSize)) {
+			return callback(null, packageSize);
+		} else {
+			// Get correct assets from package;
+			var asset = _.find(pckg.assets, function(__asset) {
+				return __asset.version === version;
+			});
+
+			// Get file size for all assets in package;
+			var parallel = asset.files.map(function(__file) {
+				return function(__callback) {
+					var url = createUrl(pckg.name, version, __file.name);
+					getSize(url, function(err, size) {
+						if (err) {
+							__callback(err);
+						} else {
+							__callback(null, {
+								name: __file.name,
+								size: size,
+								link: url
+							});
+						}
+					});
+				};
+			});
+
+			async.parallel(parallel, function(err, __assets) {
 				if (err) {
-					__callback(err);
+					callback(err);
 				} else {
-					__callback(null, {
-						name: __file.name,
-						size: size,
-						link: url
+					var assets = {
+						'/': []
+					};
+
+					// Put assets in dir tree;
+					_.each(__assets, function(__asset) {
+						var recursive = assets;
+
+						// Check if asset name is actually part of a path;
+						if (__asset.name.indexOf('/') >= 0) {
+							var folders = __asset.name.split('/');
+
+							// Remove file name;
+							folders.pop();
+
+							// Loop through folders;
+							for (var folder in folders) {
+								recursive = recursive[folders[folder]] ||
+									(recursive[folders[folder]] = {
+										'/': []
+									});
+							}
+						}
+
+						recursive['/'].push(__asset);
+					});
+
+					// New or override existing;
+					packageSize = packageSize || {};
+					packageSize.name = name;
+					packageSize.version = version;
+					packageSize.description = pckg.description;
+					packageSize.lastChecked = new Date();
+					packageSize.homepage = pckg.homepage;
+					packageSize.keywords = pckg.keywords || [];
+					packageSize.assets = assets;
+
+					// Append to list if packageSize doesn't exists;
+					if (!isExistingPackageSize) {
+						packagesSize.packages.push(packageSize);
+					}
+
+					callback(null, packageSize);
+
+					// Save to packagessize.json;
+					fs.writeFile(packageSizeJSON, JSON.stringify(packagesSize, null, 4), function(err) {
+						if (err) {
+							console.log(err);
+						} else {
+							debug('get(%o, %o) -> saved: %o', name, version, packageSizeJSON);
+						}
 					});
 				}
-			});
-		};
-	});
-
-	async.parallel(parallel, function(err, __assets) {
-		if (err) {
-			callback(err);
-		} else {
-			var assets = {
-				'/': []
-			};
-
-			_.each(__assets, function(__asset) {
-				var recursive = assets;
-
-				// Check if asset name is actually part of a path;
-				if (__asset.name.indexOf('/') >= 0) {
-					var folders = __asset.name.split('/');
-
-					// Remove file name;
-					folders.pop();
-
-					// Loop through folders;
-					for (var folder in folders) {
-						recursive = recursive[folders[folder]] || (recursive[folders[folder]] = {
-							'/': []
-						});
-					}
-				}
-
-				recursive['/'].push(__asset);
-			});
-
-			callback(null, {
-				name: name,
-				version: version,
-				description: pckg.description,
-				homepage: pckg.homepage,
-				keywords: pckg.keywords || [],
-				assets: assets
 			});
 		}
 	});
