@@ -2,6 +2,11 @@
 
 ### :sparkles: Features
 
+
+# v1.1.0 (23-02-2015)
+
+### :sparkles: Features
+
 * Added top 10 tags cloud;
 * Implemented Google Analytics;
 * Highlight active tag;
