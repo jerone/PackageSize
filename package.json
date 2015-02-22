@@ -6,6 +6,9 @@
     "name": "jerone",
     "email": "jeronevw@hotmail.com"
   },
+  "repository": {
+    "url": "https://github.com/jerone/PackageSize.git"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -24,7 +27,7 @@
     "node-sass-middleware": "^0.5.0",
     "request": "^2.53.0",
     "serve-favicon": "^2.2.0",
-    "underscore": "^1.7.0",
+    "underscore": "^1.8.2",
     "universal-analytics": "^0.3.6"
   }
 }

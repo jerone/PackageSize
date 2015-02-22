@@ -10,6 +10,7 @@
 
 * File size checks are now cached;
 * Improved debug message on server start;
+* Upgrading dependencies;
 
 ### :bug: Bugs
 
