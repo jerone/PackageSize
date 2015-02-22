@@ -1,22 +1,23 @@
 # vNext
 
-## :sparkles: Features:
+### :sparkles: Features
 
 * Added top 10 tags cloud;
 * Implemented Google Analytics;
 * Highlight active tag;
 
-## :racehorse: Improvements:
+### :racehorse: Improvements
 
 * File size checks are now cached;
+* Improved debug message on server start;
 
-## :bug: Bugs:
+### :bug: Bugs
 
 * Fix for getting the packages.json on non-windows OS;
 
 
 # v1.0.0 (17-02-2015)
 
-## :sparkles: Features:
+### :sparkles: Features
 
 * Initial release;
