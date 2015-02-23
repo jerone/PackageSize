@@ -42,7 +42,7 @@ app.use(require('./routes/routesStatic.js'));
 /* Routes; */
 app.use('/', require('./routes/index'));
 app.use('/data', require('./routes/data'));
-app.use('/api', require('./routes/api'));
+app.locals.showAPI && app.use('/api', require('./routes/api'));
 
 
 /* Error Handlers; */
