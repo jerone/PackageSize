@@ -4,10 +4,9 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
-var ua = require('universal-analytics');
+var nodalytics = require('nodalytics');
 var pjson = require('./package.json');
 
 
@@ -15,6 +14,7 @@ var pjson = require('./package.json');
 var app = express();
 var isDebug = app.get('env') === 'development';
 app.locals.pretty = isDebug;
+
 
 /* View Engine Middleware; */
 app.set('views', path.join(__dirname, 'views'));
@@ -27,13 +27,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
-app.use(cookieParser());
+app.use(nodalytics('UA-1656712-8'));
 app.use(require('node-sass-middleware')({
 	src: path.join(__dirname, 'public'),
 	debug: isDebug
-}));
-app.use(ua.middleware('UA-1656712-8', {
-	cookieName: '_ga'
 }));
 app.use(function(req, res, next) {
 	res.locals.version = pjson.version;
