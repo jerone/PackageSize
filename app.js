@@ -13,7 +13,8 @@ var pjson = require('./package.json');
 /* Variables; */
 var app = express();
 var isDebug = app.get('env') === 'development';
-app.locals.pretty = isDebug;
+app.locals.isDebug = app.locals.pretty = app.locals.showAPI = isDebug;
+app.locals.version = pjson.version;
 
 
 /* View Engine Middleware; */
@@ -32,10 +33,6 @@ app.use(require('node-sass-middleware')({
 	src: path.join(__dirname, 'public'),
 	debug: isDebug
 }));
-app.use(function(req, res, next) {
-	res.locals.version = pjson.version;
-	return next();
-})
 
 
 /* Static routes; */

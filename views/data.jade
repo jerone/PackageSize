@@ -29,14 +29,16 @@ block content
             a(href='/') home
         li
             a(href='/data/' + library.name)= library.name
-            | &nbsp;(
-            a(href='/api/' + library.name) json
-            | )
+            if showAPI
+                | &nbsp;(
+                a(href='/api/' + library.name) json
+                | )
         li.active
             span= library.version
-            | &nbsp;(
-            a(href='/api/' + library.name + '/' + library.version) json
-            | )
+            if showAPI
+                | &nbsp;(
+                a(href='/api/' + library.name + '/' + library.version) json
+                | )
     
     if !isLatestVersion
         .alert.alert-warning.alert-dismissable
@@ -78,6 +80,6 @@ block content
         .col-md-5.col-lg-6
             .well                
                 +toFolders(library.assets, [])
-                    
-    #dump
-        pre= dump
+    if isDebug                
+        #dump
+            pre= dump
