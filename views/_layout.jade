@@ -2,17 +2,27 @@
 html
     head
         title= title
+        meta(charset='UTF-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='Get the file size for populair JavaScript frameworks and libraries.')
+        meta(name='keywords', content='PackageSize,package,filesize,JavaScript,CSS,HTML,framework,library,front-end,MV*')
+        meta(name='author', content='Jeroen van Warmerdam')
         link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.min.css')
         link(rel='stylesheet', href='/vendor/bootstrap-material-design/css/material.min.css')
         link(rel='stylesheet', href='/vendor/bootstrap-material-design/css/ripples.min.css')
         link(rel='stylesheet', href='/css/style.css')
-                        
+
     body
         .container
             nav.navbar.navbar-default
                 .container-fluid
                     .navbar-header
-                        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+                        button.navbar-toggle.collapsed(type='button', 
+                                                       data-toggle='collapse', 
+                                                       data-target='#navbar', 
+                                                       aria-expanded='false', 
+                                                       aria-controls='navbar')
                             span.sr-only Toggle navigation
                             span.icon-bar
                             span.icon-bar
@@ -23,7 +33,7 @@ html
                             li.active
                                 a(href='/') Home
                             li
-                                a(href='#') About
+                                a(href='https://github.com/jerone/PackageSize', target='_blank') Source Code
 
         .container
             block content
@@ -32,7 +42,7 @@ html
             p.pull-left.text-muted 
                 | &copy; 2014 - #{new Date().getFullYear()} Jeroen van Warmerdam. 
                 | All Rights Reserved. 
-            p.pull-right: small v#{version}
+            p.pull-right.text-muted: small v#{version}
 
         script(src='/vendor/jquery/jquery.min.js')
         script(src='/vendor/bootstrap/js/bootstrap.min.js')

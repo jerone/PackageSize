@@ -1,22 +1,15 @@
 ﻿extends _layout
 
 block content
-    .row
+    .row.row-md-flex.row-lg-flex
         .col-md-9
-            .well
-                .form
-                    .form-group
-                        input.form-control.input-lg#searcher(type='search',placeholder='Search package...')
-                    .form-group
-                        .list-group#libraries
-                            each library in libraries
-                                a(href='/data/' + library.name).list-group-item
-                                    span.badge= library.version
-                                    h3.list-group-item-heading= library.name
-                                    p.list-group-item-text=library.description
-                                    p.list-group-item-text.pkg-label-group
-                                        each keyword in library.keywords
-                                            span.label.label-default= keyword
+            .pkg-index-header-container
+                .pkg-index-header
+                    h1 PackageSize
+                    p Get the file size for populair JavaScript frameworks and libraries.
+                    p Use the search field or the tag cloud to find your framework or library and get the corresponding file size.
+                .well
+                    input.form-control.input-lg#searcher(type='search', placeholder='Search package...')
         .col-md-3
             .panel.panel-primary
                 .panel-heading
@@ -29,6 +22,20 @@ block content
                                     span= keyword[0]
                                     span.badge= keyword[1]
                             | 
+    
+    .row
+        .col-md-9
+            .well
+                .list-group#libraries
+                    each library in libraries
+                        a(href='/data/' + library.name).list-group-item
+                            span.badge= library.version
+                            h3.list-group-item-heading= library.name
+                            p.list-group-item-text=library.description
+                            p.list-group-item-text.pkg-label-group
+                                each keyword in library.keywords
+                                    span.label.label-default= keyword
+        .col-md-3
             .panel.panel-primary
                 .panel-heading
                     h4 Tag Cloud
