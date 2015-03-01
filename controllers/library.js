@@ -135,7 +135,7 @@ module.exports.getKeywords = function getKeywords() {
 			return a.toLowerCase();
 		})
 		.reduce(function(o, v, k) {
-			if (v > 1) {
+			if (v > 1 && k.length > 1) {
 				o.push(k);
 			}
 			return o;
