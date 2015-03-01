@@ -14,13 +14,15 @@ var packageSizeJSON = path.join(__dirname, '..', 'data', 'packagessize.json');
 var OUTOFDATEINTERVAL = 1000 * 60 * 60 * 24; // One day;
 var SIMILAR = {
 	'angularjs': ['angular', 'angular.js'],
+	'angular-ui': ['angularui'],
 	'javascript': ['js'],
 	'charts': ['chart', 'charting', 'chartlist'],
 	'directive': ['directives'],
 	'ember.js': ['ember'],
 	'opal.js': ['opal'],
 	'aurora.js': ['aurora'],
-	'jquery-ui': ['jqueryui']
+	'jquery-ui': ['jqueryui'],
+	'bootstrap': ['twitter-bootstrap']
 };
 
 
