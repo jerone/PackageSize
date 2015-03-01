@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 				libraries: __libraries,
 				topKeywords: Library.getTopKeywords(),
 				keywords: Library.getKeywords(),
-				currentKeyword: req.query.keyword
+				currentKeyword: Library.getNormalizedKeyword(req.query.keyword)
 			});
 		});
 	} else {

@@ -1,16 +1,28 @@
 'use strict';
 
-var _ = require('underscore');
 var async = require('async');
 var debug = require('debug')('packagesize:library');
 var path = require('path');
 var fs = require('fs');
 
+var _ = require('../helpers/underscore.js');
 var getSize = require('../helpers/size.js').getSize;
 
 var packages = require(path.join(__dirname, '..', 'data', 'packages.json')).packages;
 var packageSizeJSON = path.join(__dirname, '..', 'data', 'packagessize.json');
+
 var OUTOFDATEINTERVAL = 1000 * 60 * 60 * 24; // One day;
+var SIMILAR = {
+	'angularjs': ['angular', 'angular.js'],
+	'javascript': ['js'],
+	'charts': ['chart', 'charting', 'chartlist'],
+	'directive': ['directives'],
+	'ember.js': ['ember'],
+	'opal.js': ['opal'],
+	'aurora.js': ['aurora'],
+	'jquery-ui': ['jqueryui']
+};
+
 
 function createUrl(name, version, file) {
 	return 'http://cdnjs.cloudflare.com/ajax/libs/' + name + '/' + version + '/' + file;
@@ -33,13 +45,28 @@ module.exports.getAll = function getAll(callback) {
 };
 
 
+function getNormalizedKeyword(keyword) {
+	if (_.has(SIMILAR, keyword)) {
+		return keyword;
+	}
+
+	return _.findKey(SIMILAR, function(value) {
+		return value.indexOf(keyword) > -1;
+	}) || keyword;
+};
+module.exports.getNormalizedKeyword = getNormalizedKeyword;
+
+
 module.exports.getAllByKeyword = function getAllByKeyword(keyword, callback) {
 	debug('getAllByKeyword(%o)', keyword);
 
-	keyword = keyword.toLowerCase();
+	keyword = getNormalizedKeyword(keyword.toLowerCase());
+	var similar = SIMILAR[keyword] || [];
+	similar.push(keyword);
+
 	var libraries = _.map(_.filter(packages, function(__package) {
 		return _.some(__package.keywords, function(__keyword) {
-			return __keyword.toLowerCase() === keyword;
+			return similar.indexOf(__keyword.toLowerCase()) > -1;
 		});
 	}), function(__package) {
 		return {
@@ -83,8 +110,8 @@ module.exports.getTopKeywords = function getTopKeywords() {
 	return _(packages)
 		.chain()
 		.pluck('keywords')
-		.flatten(true)
-		.compact()
+		.replaceFlatten(SIMILAR)
+		.compact() // remove falsy;
 		.countBy(function(a) {
 			return a.toLowerCase();
 		})
@@ -102,8 +129,8 @@ module.exports.getKeywords = function getKeywords() {
 	return _(packages)
 		.chain()
 		.pluck('keywords')
-		.flatten(true)
-		.compact()
+		.replaceFlatten(SIMILAR)
+		.compact() // remove falsy;
 		.countBy(function(a) {
 			return a.toLowerCase();
 		})
@@ -130,6 +157,7 @@ module.exports.getByVersion = function getByVersion(name, version, callback) {
 	debug('getByVersion(%o, %o)', name, version);
 	return get(name, version, callback);
 };
+
 
 // Check if packageSize is outdated;
 function isOutdated(packageSize) {
