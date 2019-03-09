@@ -5,13 +5,14 @@ var router = express.Router();
 
 var Library = require('../controllers/library.js');
 
-router.get('/:name/:version?', function(req, res) {
+router.get('/:name/:version?', function(req, res, next) {
 	var name = req.params.name;
 	var version = req.params.version;
 	var latestVersion = Library.getLatestVersionByName(name);
 	const callback = function(err, library) {
 		if (err) {
-			console.log(err);
+			console.error(err);
+			next();
 		} else {
 			if (req.xhr) {
 				res.send(library);

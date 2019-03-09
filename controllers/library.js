@@ -214,7 +214,7 @@ function isOutdated(packageSize) {
 }
 
 /*
- * Get package from packagessize.json or alternatifly from packages.json
+ * Get package from packagessize.json or alternatively from packages.json
  * by name or optional specified version;
  */
 function get(name, version, callback) {
@@ -250,6 +250,12 @@ function get(name, version, callback) {
 			var asset = _.find(pckg.assets, function(__asset) {
 				return __asset.version === version;
 			});
+
+			// Asset does not exist.
+			if (!asset) {
+				callback('Asset "' + name + '" (' + version + ') does not exist');
+				return;
+			}
 
 			// Get file size for all assets in package;
 			var parallel = asset.files.map(function(__file) {

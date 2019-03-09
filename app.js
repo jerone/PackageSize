@@ -57,23 +57,12 @@ app.use(function(req, res, next) {
 	next(err);
 });
 
-// Development error handler, will print stacktrace.
-if (app.get('env') === 'development') {
-	app.use(function(err, req, res, next) {
-		res.status(err.status || 500);
-		res.render('error', {
-			message: err.message,
-			error: err
-		});
-	});
-}
-
-// Production error handler, no stacktraces leaked to user.
+// Error handler, show stacktrace based on environment.
 app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error', {
 		message: err.message,
-		error: {}
+		error: app.get('env') === 'development' ? err : {}
 	});
 });
 
