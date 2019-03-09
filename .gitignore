@@ -28,6 +28,7 @@ node_modules
 .lock-wscript
 data/packages.json
 data/packagessize.json
+public/css/*.css
 
 # Visual Studio
 .vs
