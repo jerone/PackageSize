@@ -9,7 +9,7 @@ router.get('/:name/:version?', function(req, res) {
 	var name = req.params.name;
 	var version = req.params.version;
 	var latestVersion = Library.getLatestVersionByName(name);
-	var callback = function(err, library) {
+	const callback = function(err, library) {
 		if (err) {
 			console.log(err);
 		} else {

@@ -4,12 +4,11 @@ var async = require('async');
 var debug = require('debug')('packagesize:library');
 var path = require('path');
 var fs = require('fs');
+var request = require('request');
+var progress = require('request-progress');
 
 var _ = require('../helpers/underscore.js');
 var getSize = require('../helpers/size.js').getSize;
-
-var packages = require(path.join(__dirname, '..', 'data', 'packages.json')).packages;
-var packageSizeJSON = path.join(__dirname, '..', 'data', 'packagessize.json');
 
 var OUTOFDATEINTERVAL = 1000 * 60 * 60 * 24; // One day;
 var SIMILAR = {
@@ -26,6 +25,42 @@ var SIMILAR = {
 };
 
 
+var packages = {};
+module.exports.initialize = function() {
+	debug('Start initializing packages');
+
+	var x = require(path.join(__dirname, '..', 'data', 'packages.json'));
+	packages = x.packages;
+
+	debug('Packages successfully initialized');
+};
+var packageSizeJSON = path.join(__dirname, '..', 'data', 'packagessize.json');
+
+var url = "http://cdnjs.com/packages.json";
+const packagesJson = './data/packages.json';
+
+module.exports.downloadPackagesJson = function(resolve, reject) {
+	debug("Downloading %s", url);
+
+	progress(request(url))
+		.on('progress',
+			function(state) {
+				debug('Download progress %j', state);
+			})
+		.on('error',
+			function(err) {
+				console.error('Error while downloading ' + url, err);
+				return reject();
+			})
+		.on('end',
+			function() {
+				debug("Finished downloading " + url);
+				resolve();
+			})
+		.pipe(fs.createWriteStream(packagesJson));
+};
+
+
 function createUrl(name, version, file) {
 	return 'http://cdnjs.cloudflare.com/ajax/libs/' + name + '/' + version + '/' + file;
 	// https://github.com/cdnjs/cdnjs/wiki/Extensions%2C-Plugins%2C-Resources
@@ -33,7 +68,7 @@ function createUrl(name, version, file) {
 
 
 module.exports.getAll = function getAll(callback) {
-	debug('getAll()');
+	debug('getAll()', !!packages);
 
 	var libraries = _.map(packages, function(__package) {
 		return {
@@ -46,7 +81,6 @@ module.exports.getAll = function getAll(callback) {
 	callback(null, libraries);
 };
 
-
 function getNormalizedKeyword(keyword) {
 	if (_.has(SIMILAR, keyword)) {
 		return keyword;
@@ -55,7 +89,7 @@ function getNormalizedKeyword(keyword) {
 	return _.findKey(SIMILAR, function(value) {
 		return value.indexOf(keyword) > -1;
 	}) || keyword;
-};
+}
 module.exports.getNormalizedKeyword = getNormalizedKeyword;
 
 
@@ -164,9 +198,8 @@ module.exports.getByVersion = function getByVersion(name, version, callback) {
 // Check if packageSize is outdated;
 function isOutdated(packageSize) {
 	var now = new Date();
-	var outdated = (now - new Date(packageSize.lastChecked)) > OUTOFDATEINTERVAL;
-	debug('get(%o, %o) -> isOutdated(%o): %o', packageSize.name,
-		packageSize.version, packageSize.lastChecked, outdated);
+	var outdated = now - new Date(packageSize.lastChecked) > OUTOFDATEINTERVAL;
+	debug('get(%o, %o) -> isOutdated(%o): %o', packageSize.name, packageSize.version, packageSize.lastChecked, outdated);
 	return outdated;
 }
 
@@ -211,13 +244,13 @@ function get(name, version, callback) {
 			// Get file size for all assets in package;
 			var parallel = asset.files.map(function(__file) {
 				return function(__callback) {
-					var url = createUrl(pckg.name, version, __file.name);
+					var url = createUrl(pckg.name, version, __file);
 					getSize(url, function(err, size) {
 						if (err) {
 							__callback(err);
 						} else {
 							__callback(null, {
-								name: __file.name,
+								name: __file,
 								size: size,
 								link: url
 							});
@@ -277,7 +310,7 @@ function get(name, version, callback) {
 					// Save to packagessize.json;
 					fs.writeFile(packageSizeJSON, JSON.stringify(packagesSize, null, 4), function(err) {
 						if (err) {
-							console.log(err);
+							console.log('Error saving to ' + packageSizeJSON, err);
 						} else {
 							debug('get(%o, %o) -> saved: %o', name, version, packageSizeJSON);
 						}
