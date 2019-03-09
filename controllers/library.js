@@ -47,7 +47,7 @@ module.exports.initialize = function() {
 var packageSizeJSON = path.join(__dirname, '..', 'data', 'packagessize.json');
 
 var url = "http://cdnjs.com/packages.json";
-const packagesJson = './data/packages.json';
+const packagesJson = path.join(__dirname, '..', 'data', 'packages.json');
 
 module.exports.downloadPackagesJson = function(resolve, reject) {
 	debug("Downloading %s", url);
