@@ -20,8 +20,18 @@ var SIMILAR = {
 	'ember.js': ['ember'],
 	'opal.js': ['opal'],
 	'aurora.js': ['aurora'],
-	'jquery-ui': ['jqueryui'],
-	'bootstrap': ['twitter-bootstrap']
+	'jquery-ui': ['jqueryui', 'jquery ui'],
+	'bootstrap': ['twitter-bootstrap', 'boostrap'],
+	'data-binding': ['data binding'],
+	'data-visualization': ['data visualization'],
+	'datagrid': ['data grid'],
+	'lazy-load': ['lazy load', 'lazyload'],
+	'material design': ['material-design'],
+	'scrolltotop': ['scroll to top'],
+	'time-series': ['time series'],
+	'user-interface': ['user interface'],
+	'web-components': ['web components'],
+	'web-font': ['web font', 'webfont']
 };
 
 
