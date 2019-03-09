@@ -5,12 +5,12 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var _ = require('underscore');
 var nodalytics = require('nodalytics');
-var pjson = require('./package.json');
-var debug = require('debug')('packagesize:app');
+var sass = require('node-sass-middleware');
 var fs = require('fs');
+var debug = require('debug')('packagesize:app');
 
+var pjson = require('./package.json');
 var Library = require('./controllers/library.js');
 
 
@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }));
 app.use(nodalytics('UA-1656712-8'));
-app.use(require('node-sass-middleware')({
+app.use(sass({
 	src: path.join(__dirname, 'public'),
 	debug: isDebug
 }));
@@ -62,7 +62,7 @@ app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error', {
 		message: err.message,
-		error: app.get('env') === 'development' ? err : {}
+		error: isDebug ? err : {}
 	});
 });
 

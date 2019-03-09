@@ -1,126 +1,149 @@
-// Common;
+// Common
 body {
-    padding-top: 20px;
+	padding-top: 20px;
 }
-// External link icons;
+
+// External link icons
 a {
-    & > i {
-        visibility: hidden;
-    }
-    &:hover > i {
-        visibility: visible;
-    }
+	& > i {
+		visibility: hidden;
+	}
+
+	&:hover > i {
+		visibility: visible;
+	}
 }
-// Equal heights on the index;
+
+// Equal heights on the index
 .pkg-index-header-container {
-    display: flex;
-    flex-wrap: wrap;
-    .pkg-index-header {
-        padding: 0 15px;
-        h1 {
-            margin-top: 0;
-        }
-    }
-    .well {
-        align-self: flex-end;
-        width: 100%;
-    }
+	display: flex;
+	flex-wrap: wrap;
+
+	.pkg-index-header {
+		padding: 0 15px;
+
+		h1 {
+			margin-top: 0;
+		}
+	}
+
+	.well {
+		align-self: flex-end;
+		width: 100%;
+	}
 }
-// Justify all tags;
+
+// Justify all tags
 .pkg-tag-cloud {
-    text-align: justify;
-    .pkg-tag-cloud-item {
-        white-space: nowrap;
-        .badge {
-            display: inline;
-            font-size: 100%;
-            margin: 0 -0.6em 0 0.3em;
-            padding: 0.2em 0.5em 0.3em;
-        }
-    }
+	text-align: justify;
+
+	.pkg-tag-cloud-item {
+		white-space: nowrap;
+
+		.badge {
+			display: inline;
+			font-size: 100%;
+			margin: 0 -0.6em 0 0.3em;
+			padding: 0.2em 0.5em 0.3em;
+		}
+	}
 }
-// More space between labels;
+
+// More space between labels
 .pkg-label-group .label {
-    display: inline-block;
-    margin-right: 5px;
+	display: inline-block;
+	margin-right: 5px;
 }
-// Conform list groups to bootstrap-material-design;
+
+// Conform list groups to bootstrap-material-design
 .list-group {
-    .list-group-item-heading {
-        margin-top: 5px;
-    }
-    .list-group-item {
-        &::after {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            content: "";
-            display: block;
-        }
-        &:last-child::after {
-            border-bottom: 0 none;
-            content: "";
-            display: block;
-        }
-    }
+	.list-group-item-heading {
+		margin-top: 5px;
+	}
+
+	.list-group-item {
+		&::after {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+			content: "";
+			display: block;
+		}
+
+		&:last-child::after {
+			border-bottom: 0 none;
+			content: "";
+			display: block;
+		}
+	}
 }
-// Conform badge to bootstrap-material-design;
+
+// Conform badge to bootstrap-material-design
 .badge {
-    border-radius: 0;
+	border-radius: 0;
 }
-// Center align dropdown items;
+
+// Center align dropdown items
 .pkg-versions {
-    text-align: center;
+	text-align: center;
 }
-// Make dl's smaller;
+
+// Make dl's smaller
 @media (min-width: 380px) {
-    .dl-horizontal {
-        dt {
-            clear: left;
-            float: left;
-            overflow: hidden;
-            text-align: right;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width: 160px;
-        }
-        dd {
-            margin-left: 180px;
-        }
-    }
+	.dl-horizontal {
+		dt {
+			clear: left;
+			float: left;
+			overflow: hidden;
+			text-align: right;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 160px;
+		}
+
+		dd {
+			margin-left: 180px;
+		}
+	}
 }
-// Flex columns;
+
+// Flex columns
 @function col($size) {
-    @return 'col-'+$size+'-';
+	@return 'col-'+$size+'-';
 }
+
 @mixin flex($width, $selector) {
-    @media (min-width: $width) {
-        .row-#{$selector}-flex {
-            &,
-            & > div[class*=#{col($selector)}] {
-                display: flex;
-                flex: 1 1 auto;
-            }
-            & > div[class*=#{col($selector)}] {
-                // hack adjust for wrapping
-                margin: -.2px;
-            }
-            & > div[class*=#{col($selector)}] > div {
-                width: 100%;
-            }
-        }
-    }
+	@media (min-width: $width) {
+		.row-#{$selector}-flex {
+			&,
+			& > div[class*=#{col($selector)}] {
+				display: flex;
+				flex: 1 1 auto;
+			}
+
+			& > div[class*=#{col($selector)}] {
+				// hack adjust for wrapping
+				margin: -.2px;
+
+				> div {
+					width: 100%;
+				}
+			}
+		}
+	}
 }
+
 @include flex(1200px, 'lg');
 @include flex(992px, 'md');
 @include flex(768px, 'sm');
-// Improve links in panel headers;
+
+// Improve links in panel headers
 .panel-title > .small,
 .panel-title > .small > a,
 .panel-title > a,
 .panel-title > small,
 .panel-title > small > a {
-    color: inherit;
-    display: inline-block;
-    margin: -10px -15px;
-    padding: 10px 15px;
-    width: 100%;
+	color: inherit;
+	display: inline-block;
+	margin: -10px -15px;
+	padding: 10px 15px;
+	width: 100%;
 }
