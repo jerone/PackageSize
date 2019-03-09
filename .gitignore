@@ -26,6 +26,7 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+data/packages.json
 data/packagessize.json
 
 # Visual Studio
