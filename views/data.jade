@@ -1,4 +1,4 @@
-﻿extends _layout
+extends _layout
 
 mixin toFolders(folders, prefix)
     each folder,key in folders
@@ -39,14 +39,14 @@ block content
                 | &nbsp;(
                 a(href='/api/' + library.name + '/' + library.version) json
                 | )
-    
+
     if !isLatestVersion
         .alert.alert-warning.alert-dismissable
             button(type='button' class='close' data-dismiss='alert') &times;
-            | This is not the latest version. Click 
+            | This is not the latest version. Click&nbsp;
             a(href='/data/' + library.name): b here to view
             | &nbsp;the latest version.
-    
+
     .row.row-md-flex.row-lg-flex
         .col-md-7.col-lg-6
             .well
@@ -61,25 +61,25 @@ block content
                                     a(href='/data/' + library.name + '/' + subversion)= subversion
                                         if latestVersion === subversion
                                             strong &nbsp;(latest)
-                                    
+
                 h1= library.name
                     |  &nbsp;
                     small= library.version
-                    
+
                 if library.homepage
                     p
                         a(href=library.homepage target='_blank')= library.homepage + ' '
                             i.mdi-action-open-in-new
-                
+
                 p.pkg-label-group
                     each keyword in library.keywords
                         a.label.label-primary(href='/?keyword=' + keyword)= keyword
-                
+
                 p= library.description
 
         .col-md-5.col-lg-6
-            .well                
+            .well
                 +toFolders(library.assets, [])
-    if isDebug                
+    if isDebug
         #dump
             pre= dump

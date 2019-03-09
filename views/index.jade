@@ -1,4 +1,4 @@
-﻿extends _layout
+extends _layout
 
 block content
     .row.row-md-flex.row-lg-flex
@@ -21,8 +21,9 @@ block content
                                 a.label(href='/?keyword=' + keyword[0], class=currentKeyword&&currentKeyword===keyword[0]?'label-info':'label-primary')
                                     span= keyword[0]
                                     span.badge= keyword[1]
-                            | 
-    
+                            //- Visual Studio will remove the required trailing whitespace, so we must use an HTML entity.
+                            | &#32;
+
     .row
         .col-md-9
             .well
@@ -43,4 +44,5 @@ block content
                     .pkg-tag-cloud
                         each keyword in keywords
                             a.label(href='/?keyword=' + keyword, class=currentKeyword&&currentKeyword===keyword?'label-info':'label-primary')= keyword
-                            | 
+                            //- Visual Studio will remove the required trailing whitespace, so we must use an HTML entity.
+                            | &#32;
