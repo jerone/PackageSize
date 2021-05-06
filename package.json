@@ -25,6 +25,6 @@
     "request": "^2.88.0",
     "request-progress": "^3.0.0",
     "serve-favicon": "^2.2.0",
-    "underscore": "^1.8.2"
+    "underscore": "^1.12.1"
   }
 }
